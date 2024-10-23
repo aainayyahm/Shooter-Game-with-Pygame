@@ -103,6 +103,13 @@ def draw_button(text, x, y, w, h, inactive_color, active_color, action=None):
     text_surf = font.render(text, True, white)
     screen.blit(text_surf, (x+25,y+13))
 
+def show_high_score():
+    font = pg.font.SysFont(None, 30)
+    text = font.render(f"Highest Score: {highest_score}", True, black)
+    screen.blit(text, (width // 2 - 100, height // 2 + 90))
+    pg.display.flip()
+    pg.time.delay(2000)
+
 def start_game():
     all_sprites = pg.sprite.Group()
     enemies = pg.sprite.Group()
@@ -177,10 +184,11 @@ def start_game():
         screen.blit(text, (10, 35))
 
         if game_over:
-            over_text = font.render(f"Game Over! Your Best Score: {highest_score}", True, black)
-            screen.blit(over_text, (width // 2 - 165, height // 3))
+            over_text = font.render(f"Game Over! Your Score: {score}", True, black)
+            screen.blit(over_text, (width // 2 - 145, height // 3))
 
             draw_button("Restart Game", width // 3, height // 2, 250, 50, blue, red, start_game)
+            draw_button("High Score", width // 3 , height // 2 + 70, 250, 50, black, white, show_high_score)   
 
             sound_effect.stop()
             sound_shot.stop()
